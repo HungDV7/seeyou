@@ -49,6 +49,12 @@
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       animation: bob 6s ease-in-out infinite;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    .card.show {
+      opacity: 1;
     }
 
     /* ảnh bạn làm nền khung */
@@ -74,7 +80,6 @@
       color: #fff;
       text-align: center;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
-      animation: fadeUp 2s ease;
     }
 
     h1 {
@@ -112,18 +117,6 @@
 
       100% {
         transform: translateY(-8px);
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
       }
     }
 
@@ -171,12 +164,12 @@
     </div>
 
     <!-- khung lời chào, ảnh bạn làm nền -->
-    <div class="card">
+    <div class="card" id="greetingCard">
       <div class="card-bg">
         <img src="image/thuy.jpg" alt="Ảnh bạn của tôi">
       </div>
       <div class="card-content">
-        <h1>Chào cậu nhó — Hẹn gặp lại!</h1>
+        <h1>Chào cậu nhó - Hẹn gặp lại!</h1>
         <p class="lead">Cảm ơn cậu vì những kỷ niệm. Chúc cậu mọi điều tốt đẹp, hạnh phúc và bình yên &lt;3</p>
       </div>
     </div>
@@ -188,7 +181,7 @@
 
     <!-- overlay nhấn để bật nhạc -->
     <div id="overlay">
-      👉 Cậu bấm vào điiii!!!!
+      👉 Cậu bấm vào điii!
       <span>🎵</span>
     </div>
   </main>
@@ -196,10 +189,12 @@
   <script>
     const audio = document.getElementById("oceanAudio");
     const overlay = document.getElementById("overlay");
+    const card = document.getElementById("greetingCard");
 
     overlay.addEventListener("click", () => {
       audio.play().then(() => {
         overlay.style.display = "none";
+        card.classList.add("show"); // hiện khung lời chào
       }).catch(err => {
         console.log("Không thể phát nhạc:", err);
       });
@@ -221,4 +216,3 @@
 </body>
 
 </html>
-
