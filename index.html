@@ -70,7 +70,7 @@
       left: 0;
       right: 0;
       z-index: 1;
-      padding: 1.5rem 1rem;
+      padding: 2rem 1rem;
       color: #fff;
       text-align: center;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
@@ -79,7 +79,7 @@
 
     h1 {
       margin: 0 0 0.8rem 0;
-      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-size: 2rem;
       font-weight: 700;
       line-height: 1.3;
     }
@@ -87,7 +87,7 @@
     p.lead {
       margin: 0;
       font-weight: 500;
-      font-size: clamp(0.9rem, 4vw, 1.1rem);
+      font-size: 1.1rem;
     }
 
     /* bong bóng bay lên */
@@ -138,6 +138,28 @@
         opacity: 0;
       }
     }
+
+    /* overlay yêu cầu click */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      z-index: 9999;
+      cursor: pointer;
+      flex-direction: column;
+      text-align: center;
+      animation: fadeUp 1s ease;
+    }
+
+    #overlay span {
+      font-size: 2rem;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -159,20 +181,27 @@
       </div>
     </div>
 
-    <!-- nhạc tự phát -->
-    <audio id="oceanAudio" loop autoplay preload="auto" muted playsinline>
+    <!-- nhạc -->
+    <audio id="oceanAudio" loop preload="auto">
       <source src="nhacchill.mp3" type="audio/mpeg">
-      Trình duyệt không hỗ trợ audio.
     </audio>
+
+    <!-- overlay nhấn để bật nhạc -->
+    <div id="overlay">
+      👉 Cậu bấm vào điiii!!!!
+      <span>🎵</span>
+    </div>
   </main>
 
   <script>
-    // bật nhạc ngay khi load trang
     const audio = document.getElementById("oceanAudio");
-    window.addEventListener("load", () => {
-      audio.muted = false;
-      audio.play().catch(err => {
-        console.log("Trình duyệt chặn autoplay:", err);
+    const overlay = document.getElementById("overlay");
+
+    overlay.addEventListener("click", () => {
+      audio.play().then(() => {
+        overlay.style.display = "none";
+      }).catch(err => {
+        console.log("Không thể phát nhạc:", err);
       });
     });
 
@@ -192,3 +221,4 @@
 </body>
 
 </html>
+
